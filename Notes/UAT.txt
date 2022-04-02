@@ -1,0 +1,43 @@
+Automation testing
+1.Data Driven  ( data is coming from xml )
+2.Keyward driven (data is in class)
+3.Hybrid framework
+
+--------------------------------------
+
+Methods:
+
+
+driver.Navigate().GoToUrl("https://www.youtube.com");
+driver.Navigate().GoToUrl("https://demowf.aspnetawesome.com");
+driver.FindElement(By.Id("idstring"));
+driver.FindElement(By.Id("idstring")).SendKeys("valuestring"); // automatically give the input to the elected input element
+______________________________________________________________________
+Automation testing models
+
+1.Behavioral driven development model (BDD) // Specflow nBEHAVE
+2.Page Object Model  // 
+Page object simply models the objects within the test code.
+This reduces the amount of duplicated codes and means that if the UI changes, the fixed need only be
+ 
+ --------------------------------------
+ create .net core nunit project
+ 
+ Tests projects are non -executable
+ 
+ ctrl ET (open test explorer)
+ ctrl RT (debug single test)
+ ctrl RA  ( debug all test)
+ 
+ packages should have .netstandardv2.0 dependency then it willwork in .netcore 3.1
+ 
+ Selenium.webdriver
+ Specflow
+ 
+ Selenium do two things
+ 1.Open browser
+ 2.select element on the page and perform actions
+ 
+ 
+
+ 

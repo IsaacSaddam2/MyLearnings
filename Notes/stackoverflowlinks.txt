@@ -1,0 +1,11 @@
+https://stackoverflow.com/questions/1450774/splitting-a-string-into-chunks-of-a-certain-size
+
+static IEnumerable<string> Split(string str, int chunkSize)
+{
+    return Enumerable.Range(0, str.Length / chunkSize)
+        .Select(i => str.Substring(i * chunkSize, chunkSize));
+}
+Please note that additional code might be required to gracefully handle edge cases 
+(null or empty input string, chunkSize == 0, input string length not divisible by chunkSize, etc.).
+ The original question doesn't specify any requirements for these edge cases and in real life the requirements 
+ might vary so they are out of scope of this answer.
