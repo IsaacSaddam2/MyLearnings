@@ -1,3 +1,22 @@
+### index
+
+1. To Read Line Until null (25)
+2. Encryption (48)
+3. cut the sticks (155)
+4. last stone weight (244)
+5. Equalize array (284)
+6. plus minus (315)
+7. min-max
+8. Time conversion (364)
+9. Breaking the Records (394)
+10. CamelCase 433
+11. flipping bits
+12. lonelyInteger
+13. counting valleys
+14. Kadanes
+15. count occcurance
+
+
 ### Notes
 
 if 10^9 then use long
@@ -39,8 +58,6 @@ class Solution {
       }
     }
 }
-
-
 
 ### Encryption
 
@@ -235,8 +252,6 @@ class Solution
 }
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-
-
 ##### last stone weight
 
 public class Solution {
@@ -404,7 +419,7 @@ public class Solution {
         
         foreach(var x in arr)
         {
-            if(x>max)
+            if(x > max)
             {                
              max = x;
              count[0]++;
@@ -637,3 +652,48 @@ class Result
     }
 }
 ----------------------------------------------------------------------------------------------
+
+### Kadane algorithms
+
+int[] a = new int[] { 1, -2, -4, 8, -9 };
+            int maxSum = int.MinValue;
+            int localmax =0;
+            for(var i =0; i< a.Length; i++ )
+            {
+                localmax += a[i]; 
+
+                if (maxSum < localmax)
+                    maxSum = localmax; 
+
+                if (localmax < 0)      
+                    localmax = 0;
+            }
+
+            Console.WriteLine(maxSum);
+            Console.ReadLine();
+
+-------------------------------------------------------------------------------------------------------------
+
+#### Count Occurance
+
+  string s = "My Name is saddam";
+            Dictionary<char, int> counts = new Dictionary<char, int>();
+            for(int i=0; i< s.Length; i++)
+            {
+                if(s[i]!= ' ')
+                {
+                    if(counts.ContainsKey(s[i]))
+                    {
+                        counts[s[i]]++;
+                    }
+                    else
+                    {
+                        counts.Add(s[i], 1);
+                    }
+                }
+            }
+            foreach(var x in counts)
+            {
+                Console.WriteLine("{0} {1}",x.Key, x.Value);
+            }
+            Console.ReadLine();
