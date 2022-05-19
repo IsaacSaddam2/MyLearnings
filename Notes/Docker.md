@@ -1,5 +1,7 @@
 ### images
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=saddam98' -e 'MSSQL_PID=Express' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest . //MsSqlServer
+
+# MsSqlServer
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=saddam98" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest  
 
 #############################Docker
 visit hub.docker.com/node
