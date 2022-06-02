@@ -3,4 +3,4 @@ git config --global user.name "name"
 git congig --global http.proxy
 git config --global --list
 git log --graph --oneline --decorate --all   //to see branch stucture
-git remote -v   //get url of remote
+git remote -v   //get url of remotes
