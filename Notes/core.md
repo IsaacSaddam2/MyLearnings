@@ -175,3 +175,38 @@ public class UserRepository : IUserRepository
         }
     }    
 
+ #### EF Entity Framework Core
+
+## Commangs in PMC
+ Add-migration message
+ update-database
+ update-database -target <migrationname>
+ update-database -migration <migrationname
+ 
+
+## MicroServices (Linkedin)
+- microservices are:
+1. independently deployable
+2. loosely coupled
+3. autonomous
+
+### Pros
+1. Autonomous 
+2. Scalability
+3. Maintainibility 
+4. Reseliency (ability to recover from failure and become functional again)
+5. Platfom and technology agnostic 
+
+### cons
+1. More complicated
+2. Eventual consistency
+
+### DDD (Domain-Driven-Design)
+
+- you could benefit from DDD principles and tools to design a well architected system
+- guides you to write clean and reusable code
+- through use of bounded context, context mapping and ubiquitous language
+
+### Challanges
+
+- how to communicate two services (sync communication is easy to implement but has disadvantage: when one service fail all offline streams will fail)

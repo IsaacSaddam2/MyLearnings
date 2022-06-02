@@ -1,9 +1,11 @@
-### images
+# images
 
 # MsSqlServer
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=saddam98" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest  
 
-#############################Docker
+############################# Docker
+
+# commands
 visit hub.docker.com/node
 
 notes:
@@ -27,7 +29,12 @@ docker-compose up  												    //runs the dockercompose file
 docker-compose down  												//downs the dockercompose file
 docker-compose down -v  											//downs the dockercompose file
 
-#####Creating a custom image
+## Notes:
+
+1. When we run two images in different containers the network pth between two containers is prohibited, you have set up networking permissions explicitly
+    Solution is 1.docker-compose file   2. software defined network    
+
+#### Creating a custom image
 
 1. Create a docker file (set of instruction for creating an image eg. Dockerfile)
 
@@ -75,7 +82,7 @@ docker build -t image_name .
 docker run -dp 3000:3000 --name <container> <image>
 
 
-######### To sync ur local repo tocontainer repo use volumes caleed bindmount
+#### To sync ur local repo tocontainer repo use volumes caleed bindmount
 
 syntax:
 docker run -v pathlocallocation:pathcontainerlocation -dp 3000:3000 --name <container> <image>
@@ -84,20 +91,20 @@ docker run -v ${pwd}:/app:ro -dp 3000:3000 --name  nodecontainer node_app_imag /
 docker run -v ${pwd}:/app -v /app/node_modules -dp 3000:3000 --name  nodecontainer node_app_imag  //prevents overriding nodemodules from local repo
 
 
-##### setting environment variable
+#### setting environment variable
 
 docker run -v ${pwd}:/app -v /app/node_modules --env PORT=4000 -dp 3000:4000 --name  nodecontainer node_app_imag  //prevents overriding nodemodules from local repo
 docker run -v ${pwd}:/app -v /app/node_modules --env-file ./.env -dp 3000:4000 --name  nodecontainer node_app_imag  //prevents overriding nodemodules from local repo
 
 
-#######clearnig volumes
+### clearnig volumes
 
 docker volume prune
 docker volume volumeId
 docker rm <container> -fv //deletes with volume
 docker volume ls  //list all volumes
 
-########Docker compose file
+## Docker compose file
 
 create docker-compose.yml    //used to run manage multiple commands with single command
 
@@ -209,5 +216,95 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=saddam
       - MONGO_INITDB_ROOT_PASSWORD=saddam98
 
+## docker-compose
 
-### .net core and SqlServer  
+1. reduces reliance on, and simplifies use of, docker command line
+2. Allows us to run multiple containers quickly
+3. Allows us to set up the connections between containers
+
+## .net core and SqlServer  
+
+## Scenario 1 : .net core app running on local and SqlServer on docker
+
+1. Execute this command:
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=saddam98" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest  
+
+this command will pull the image from microsoft container registry and run in a container
+
+2. We can use migration file to create schema in db
+
+3. Create a service class to Migrate the data from migration file in the code itself (Its not the right way)
+
+public static class SeedData
+    {
+        public static void PopulateData(IApplicationBuilder app)
+        {
+            using(var services = app.ApplicationServices.CreateScope())
+            {
+                SeedDataBase(services.ServiceProvider.GetService<ApplicationDbContext>());
+            }
+        }
+
+        private static void SeedDataBase(ApplicationDbContext applicationDbContext)
+        {
+            applicationDbContext.Database.Migrate();
+        }
+    }
+
+4. In Startup class call this method 
+### setting keys for sqlserver using environment variables in docker compose file else default
+            var server = Configuration["DbServer"] ?? "localhost";
+            var port = Configuration["Port"] ?? "1433";
+            var username = "SA";
+            var password = Configuration["Password"] ?? "Saddam_98";
+            var database = Configuration["Db"] ?? "Parky";
+
+            var conString = $"Server = {server},{port};Initial Catalog ={database};User ID = {username};Password = {password}";
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("myCon")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conString));
+
+In Configure Method,
+            SeedData.PopulateData(app);
+
+
+
+# DockerImages
+
+
+# Docker Compose Files
+           
+# Theory  
+## Why container?
+### Bad Old Days
+- application runs businesses
+- no app no business
+- Its impossible to distinguish between the business and the apps that powers it
+- In old days, in 2000s, we use to host a single application in a single server
+#### Old Model
+- If business need a new application , IT people will have to buy a server which include expenses like  
+    1. Upfront CapEx cost
+    2. OpEx cost (power and cooling)
+    3. hire people to build and administrate this stuff
+- things which difficult to decide when buying server
+    1. how big
+    2. how fast
+- so IT would have to buy big and fast server to be cautous otherwise that would lead to poor performance of app that inturn bad for business
+- this always end up purchasing big and expensive servers and most of the tie uses only 5% of their capacity 
+- proper waste of company capital and resources
+### Hello Vmware
+- this technology takes that same over spec'd server and squeeze more out of them and let us run multiple application   
+- overpowered Servers became useful now
+- Vmware is a company, hypervisor is a technology
+### Vmware warts
+- to run 4 apps, we create four Vms which are slice of physical server's hardware
+- imagine we allocated 25% of cpu, memory, disk space for each Virtual server
+- Each Virtual machine requires dedicated OS that takes lot of resources
+   1. liceses to run windows/linux/mac os
+   2. each os needs caring, admin staff like security patching, updating, antivirus management
+### Containers   
+
+
+
+
+
+
